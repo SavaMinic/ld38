@@ -124,7 +124,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 456357955}
-  m_LocalRotation: {x: -0.0018389, y: 0.966798, z: -0.25544024, w: -0.006960156}
+  m_LocalRotation: {x: -0.0018389001, y: 0.96679807, z: -0.25544026, w: -0.0069601564}
   m_LocalPosition: {x: 0.21130401, y: 3.4556165, z: 3.7654228}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -169,6 +169,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 476059718}
+  walkingSpeed: {x: 2.5, y: 2.5}
+  sneakingSpeed: {x: 1, y: 1}
 --- !u!4 &595666687
 Transform:
   m_ObjectHideFlags: 0

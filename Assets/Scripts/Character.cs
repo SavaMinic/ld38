@@ -7,11 +7,20 @@ public class Character : MonoBehaviour
 	[SerializeField]
 	private Animator animator;
 
+	[Header("Movement & Rotation")]
 	[SerializeField]
-	private Vector2 walkingSpeed;
+	private float walkingSpeed;
 
 	[SerializeField]
-	private Vector2 sneakingSpeed;
+	private float sneakingSpeed;
+
+	[SerializeField]
+	private float normalRotationSpeed;
+
+	[SerializeField]
+	private float sneakingRotationSpeed;
+
+	private bool isJumping;
 	
 	// Update is called once per frame
 	void Update()
@@ -24,12 +33,7 @@ public class Character : MonoBehaviour
 		animator.SetFloat("speedY", dy);
 
 		var speed = sneaking ? sneakingSpeed : walkingSpeed;
-		var direction = new Vector3(
-			-dx * speed.x,
-			0f,
-			-dy * speed.y
-        );
-		transform.Translate(direction * Time.deltaTime);
+		transform.Translate(Vector3.forward * (-dy) * speed * Time.deltaTime);
 
 		if (dx != 0f || dy != 0f)
 		{
@@ -40,6 +44,18 @@ public class Character : MonoBehaviour
 		{
 			animator.SetBool("walking", false);
 			animator.SetBool("sneaking", false);
+		}
+
+		if (dx != 0f)
+		{
+			var rotationSpeed = sneaking ? sneakingRotationSpeed : normalRotationSpeed;
+			transform.Rotate(0f, dx * rotationSpeed * Time.deltaTime, 0f);
+		}
+
+		if (!isJumping && Input.GetKeyDown(KeyCode.Space))
+		{
+			//isJumping = true;
+			animator.SetTrigger("jump");
 		}
 	}
 }

@@ -10,6 +10,8 @@ public class Grenade : MonoBehaviour
 
 	public ParticleSystem explosion;
 
+	private bool isFound;
+
 	void Awake()
 	{
 		rigidBody = GetComponent<Rigidbody>();
@@ -17,8 +19,9 @@ public class Grenade : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Spider"))
+		if (!isFound && collision.collider.gameObject.layer == LayerMask.NameToLayer("Spider"))
 		{
+			isFound = true;
 			rigidBody.AddForce(-collision.collider.transform.forward * 7f);
 			StartCoroutine(ExplosionAnimation());
 		}
@@ -34,11 +37,12 @@ public class Grenade : MonoBehaviour
 
 		yield return new WaitForSeconds(1.5f);
 
+		GameManager.Instance.GranadeFound();
 		Go.to(transform, .5f, new GoTweenConfig()
 			.scale(0f)
 		);
-		yield return new WaitForSeconds(.5f);
 
+		yield return new WaitForSeconds(.5f);
 		GameObject.Destroy(gameObject);
 	}
 

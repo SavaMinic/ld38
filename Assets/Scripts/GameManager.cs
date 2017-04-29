@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
 	public void WinGame()
 	{
 		State = GameState.Won;
+		UiManager.Instance.ShowWining();
 	}
 
 	public void ContinueGame()

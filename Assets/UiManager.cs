@@ -19,10 +19,16 @@ public class UiManager : MonoBehaviour
 	public Text scoreLabel;
 	public RectTransform winUI;
 	public RectTransform menuUi;
+	public RectTransform helpUi;
+	public RectTransform aboutUI;
 
 	public Button startGameButton;
 	public Button continueButton;
 	public Button restartGameButton;
+
+	public Button helpButton;
+	public Button aboutButton;
+	public Button closeHelpAboutButton;
 
 	#endregion
 
@@ -43,6 +49,7 @@ public class UiManager : MonoBehaviour
 		startGameButton.gameObject.SetActive(isStart);
 		continueButton.gameObject.SetActive(!isStart);
 		restartGameButton.gameObject.SetActive(!isStart);
+		RefreshScore();
 	}
 
 	private IEnumerator RefreshAnimation(int currScore, int maxScore)
@@ -62,10 +69,45 @@ public class UiManager : MonoBehaviour
 		Application.Quit();
 	}
 
+	public void ShowWining()
+	{
+		winUI.gameObject.SetActive(true);
+	}
+
 	public void OnContinueGameClick()
 	{
 		menuUi.gameObject.SetActive(false);
 		gameUI.gameObject.SetActive(true);
 		GameManager.Instance.ContinueGame();
+	}
+
+	public void OnHelpClick()
+	{
+		helpUi.gameObject.SetActive(true);
+		aboutUI.gameObject.SetActive(false);
+
+		helpButton.gameObject.SetActive(false);
+		aboutButton.gameObject.SetActive(false);
+		closeHelpAboutButton.gameObject.SetActive(true);
+	}
+
+	public void OnAboutClick()
+	{
+		helpUi.gameObject.SetActive(false);
+		aboutUI.gameObject.SetActive(true);
+
+		helpButton.gameObject.SetActive(false);
+		aboutButton.gameObject.SetActive(false);
+		closeHelpAboutButton.gameObject.SetActive(true);
+	}
+
+	public void OnCloseAboutHelpClick()
+	{
+		helpUi.gameObject.SetActive(false);
+		aboutUI.gameObject.SetActive(false);
+
+		helpButton.gameObject.SetActive(true);
+		aboutButton.gameObject.SetActive(true);
+		closeHelpAboutButton.gameObject.SetActive(false);
 	}
 }

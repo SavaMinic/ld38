@@ -46,6 +46,24 @@ public class Character : MonoBehaviour
 	[SerializeField]
 	private float attackAnimationTime;
 
+	[Header("Sounds")]
+	[SerializeField]
+	private AudioSource fastRuningBassAudio;
+
+	[SerializeField]
+	private float fastRunningTransitionDuration;
+
+	[SerializeField]
+	private AudioSource jumpingAudio;
+
+	[SerializeField]
+	private AudioClip jumpSound;
+
+	[SerializeField]
+	private AudioClip landSound;
+
+	private GoTween fastRunningTransition;
+
 	#endregion
 
 	#region Properties
@@ -110,6 +128,20 @@ public class Character : MonoBehaviour
 			animator.SetBool("walking", false);
 			animator.SetBool("sneaking", false);
 		}
+
+		// Handle audio for running
+		if (Input.GetKeyDown(KeyCode.LeftShift))
+		{
+			if (fastRunningTransition != null)
+				fastRunningTransition.destroy();
+			fastRunningTransition = Go.to(fastRuningBassAudio, fastRunningTransitionDuration, new GoTweenConfig().floatProp("volume", 1f));
+		}
+		else if (Input.GetKeyUp(KeyCode.LeftShift))
+		{
+			if (fastRunningTransition != null)
+				fastRunningTransition.destroy();
+			fastRunningTransition = Go.to(fastRuningBassAudio, fastRunningTransitionDuration, new GoTweenConfig().floatProp("volume", 0f));
+		}
 	}
 
 	#endregion
@@ -126,6 +158,7 @@ public class Character : MonoBehaviour
 
 		var force = transform.forward * jumpIntensity.x + transform.up * jumpIntensity.y;
 		rigidBody.AddForce(force);
+		jumpingAudio.PlayOneShot(jumpSound);
 	}
 
 	private IEnumerator AttackAnimation()
@@ -147,6 +180,7 @@ public class Character : MonoBehaviour
 	{
 		if (IsJumping)
 		{
+			jumpingAudio.PlayOneShot(landSound);
 			State = CharState.Idle;
 			animator.ResetTrigger("jump");
 			animator.SetTrigger("finishFall");

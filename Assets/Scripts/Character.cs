@@ -17,6 +17,9 @@ public class Character : MonoBehaviour
 	[SerializeField]
 	private Animator animator;
 
+	[SerializeField]
+	private CameraController cameraController;
+
 	private Rigidbody rigidBody;
 
 	[Header("Movement & Rotation")]
@@ -160,6 +163,7 @@ public class Character : MonoBehaviour
 
 		yield return new WaitForSeconds(jumpAnimationPrepareTime);
 
+		//cameraController.SetDepthOfField(true);
 		var force = transform.forward * jumpIntensity.x + transform.up * jumpIntensity.y;
 		rigidBody.AddForce(force);
 
@@ -169,6 +173,7 @@ public class Character : MonoBehaviour
 		jumpTransition = Go.to(jumpingAudio, 6f, new GoTweenConfig().floatProp("volume", 0.2f).setDelay(1.5f));
 		jumpTransition.setOnCompleteHandler(t => {
 			mainAudio.volume = 0.65f;
+			jumpingAudio.Stop();
 		});
 	}
 
@@ -201,6 +206,7 @@ public class Character : MonoBehaviour
 			State = CharState.Idle;
 			animator.ResetTrigger("jump");
 			animator.SetTrigger("finishFall");
+			//cameraController.SetDepthOfField(false);
 		}
 	}
 

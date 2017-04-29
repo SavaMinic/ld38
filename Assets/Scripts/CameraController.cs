@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.ImageEffects;
 
 public class CameraController : MonoBehaviour
 {
 
 	private Camera myCamera;
+	private DepthOfField depthOfField;
 
 	public Transform targetCharacter;
 
@@ -20,7 +22,8 @@ public class CameraController : MonoBehaviour
 
 	void Start()
 	{
-		myCamera = GetComponent<Camera>();	
+		myCamera = GetComponentInChildren<Camera>();
+		depthOfField = myCamera.GetComponent<DepthOfField>();
 	}
 
 	void Update()
@@ -42,5 +45,10 @@ public class CameraController : MonoBehaviour
 		{
 			transform.rotation = toRotation = targetCharacter.rotation;
 		}
+	}
+
+	public void SetDepthOfField(bool enabled)
+	{
+		depthOfField.enabled = enabled;
 	}
 }

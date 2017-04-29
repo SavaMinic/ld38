@@ -32,6 +32,8 @@ public class Character : MonoBehaviour
 
 	private bool isJumping;
 
+	#region Unity
+
 	void Awake()
 	{
 		rigidBody = GetComponent<Rigidbody>();
@@ -76,22 +78,38 @@ public class Character : MonoBehaviour
 		// Handle jump
 		if (!isJumping && Input.GetKeyDown(KeyCode.Space))
 		{
-			//isJumping = true;
+			isJumping = true;
 			StartCoroutine(JumpAnimation());
 		}
 	}
+
+	#endregion
 
 	#region Coroutines
 
 	private IEnumerator JumpAnimation()
 	{
 		var dx = Input.GetAxis("Horizontal");
+		animator.ResetTrigger("finishFall");
 		animator.SetTrigger("jump");
 
 		yield return new WaitForSeconds(jumpAnimationPrepareTime);
-
 		var force = Mathf.Sign(dx) * transform.forward * jumpIntensity.x + transform.up * jumpIntensity.y;
 		rigidBody.AddForce(force);
+	}
+
+	#endregion
+
+	#region Public API
+
+	public void FinishFall()
+	{
+		if (isJumping)
+		{
+			isJumping = false;
+			animator.ResetTrigger("jump");
+			animator.SetTrigger("finishFall");
+		}
 	}
 
 	#endregion

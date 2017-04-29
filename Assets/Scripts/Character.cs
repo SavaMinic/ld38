@@ -5,6 +5,15 @@ using System.Collections;
 
 public class Character : MonoBehaviour
 {
+	public enum CharState
+	{
+		Idle,
+		Jumping,
+		Attacking
+	}
+
+	#region Fields
+
 	[SerializeField]
 	private Animator animator;
 
@@ -16,6 +25,9 @@ public class Character : MonoBehaviour
 
 	[SerializeField]
 	private float sneakingSpeed;
+
+	[SerializeField]
+	private float moveWhileAttackingSpeed;
 
 	[SerializeField]
 	private float normalRotationSpeed;
@@ -30,13 +42,28 @@ public class Character : MonoBehaviour
 	[SerializeField]
 	private float jumpAnimationPrepareTime;
 
-	private bool isJumping;
+	[Header("Attacking")]
+	[SerializeField]
+	private float attackAnimationTime;
+
+	#endregion
+
+	#region Properties
+
+	public CharState State { get; private set; }
+
+	private bool IsIdle { get { return State == CharState.Idle; } }
+	private bool IsJumping { get { return State == CharState.Jumping; } }
+	private bool IsAttacking { get { return State == CharState.Attacking; } }
+
+	#endregion
 
 	#region Unity
 
 	void Awake()
 	{
 		rigidBody = GetComponent<Rigidbody>();
+		State = CharState.Idle;
 	}
 	
 	// Update is called once per frame
@@ -49,13 +76,25 @@ public class Character : MonoBehaviour
 		// Handle logic movements
 		if (dy != 0f)
 		{
-			var speed = sneaking ? sneakingSpeed : walkingSpeed;
+			var speed = IsAttacking ? moveWhileAttackingSpeed 
+				: (sneaking ? sneakingSpeed : walkingSpeed);
 			transform.Translate(Vector3.forward * (-dy) * speed * Time.deltaTime);
 		}
 		if (dx != 0f)
 		{
 			var rotationSpeed = sneaking ? sneakingRotationSpeed : normalRotationSpeed;
 			transform.Rotate(0f, dx * rotationSpeed * Time.deltaTime, 0f);
+		}
+
+		// Handle attack
+		if (IsIdle && Input.GetKeyDown(KeyCode.Space))
+		{
+			StartCoroutine(AttackAnimation());
+		}
+		// Handle jump
+		if (IsIdle && Input.GetKeyDown(KeyCode.E))
+		{
+			StartCoroutine(JumpAnimation());
 		}
 
 		// Handle animations
@@ -73,28 +112,31 @@ public class Character : MonoBehaviour
 		}
 	}
 
-	void FixedUpdate()
-	{
-		// Handle jump
-		if (!isJumping && Input.GetKeyDown(KeyCode.Space))
-		{
-			isJumping = true;
-			StartCoroutine(JumpAnimation());
-		}
-	}
-
 	#endregion
 
 	#region Coroutines
 
 	private IEnumerator JumpAnimation()
 	{
+		State = CharState.Jumping;
 		animator.ResetTrigger("finishFall");
 		animator.SetTrigger("jump");
 
 		yield return new WaitForSeconds(jumpAnimationPrepareTime);
+
 		var force = transform.forward * jumpIntensity.x + transform.up * jumpIntensity.y;
 		rigidBody.AddForce(force);
+	}
+
+	private IEnumerator AttackAnimation()
+	{
+		State = CharState.Attacking;
+		animator.SetTrigger("attack");
+
+		yield return new WaitForSeconds(attackAnimationTime);
+
+		animator.ResetTrigger("attack");
+		State = CharState.Idle;
 	}
 
 	#endregion
@@ -103,9 +145,9 @@ public class Character : MonoBehaviour
 
 	public void FinishFall()
 	{
-		if (isJumping)
+		if (IsJumping)
 		{
-			isJumping = false;
+			State = CharState.Idle;
 			animator.ResetTrigger("jump");
 			animator.SetTrigger("finishFall");
 		}

@@ -94,6 +94,9 @@ public class Character : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (!GameManager.Instance.IsPlaying)
+			return;
+		
 		var dx = Input.GetAxis("Horizontal");
 		var dy = Input.GetAxis("Vertical");
 		var sneaking = Input.GetKey(KeyCode.LeftShift);

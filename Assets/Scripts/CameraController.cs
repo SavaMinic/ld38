@@ -28,6 +28,9 @@ public class CameraController : MonoBehaviour
 
 	void Update()
 	{
+		if (!GameManager.Instance.IsPlaying)
+			return;
+		
 		if (Input.GetMouseButton(0))
 		{
 			xDeg -= Input.GetAxis("Mouse X") * speed * friction;

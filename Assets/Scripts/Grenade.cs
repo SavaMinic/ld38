@@ -37,7 +37,7 @@ public class Grenade : MonoBehaviour
 
 		yield return new WaitForSeconds(1.5f);
 
-		GameManager.Instance.GranadeFound();
+		GameManager.Instance.GrenadeFound();
 		Go.to(transform, .5f, new GoTweenConfig()
 			.scale(0f)
 		);

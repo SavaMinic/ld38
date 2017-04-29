@@ -31,10 +31,21 @@ public class GameManager : MonoBehaviour
 		Instance = this;
 		MaxScore = FindObjectsOfType<Grenade>().Length;
 		CurrentScore = 0;
-		State = GameState.Playing;
+		State = GameState.Menu;
+		UiManager.Instance.Refresh(true);
 	}
 
-	public void GranadeFound()
+	void Update()
+	{
+		if (IsPlaying && Input.GetKeyUp(KeyCode.Escape))
+		{
+			State = GameState.Menu;
+			UiManager.Instance.Refresh(false);
+			Time.timeScale = 0f;
+		}
+	}
+
+	public void GrenadeFound()
 	{
 		CurrentScore++;
 		UiManager.Instance.RefreshScore();
@@ -47,5 +58,11 @@ public class GameManager : MonoBehaviour
 	public void WinGame()
 	{
 		State = GameState.Won;
+	}
+
+	public void ContinueGame()
+	{
+		State = GameState.Playing;
+		Time.timeScale = 1f;
 	}
 }

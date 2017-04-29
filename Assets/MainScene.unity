@@ -152,7 +152,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4204331235605594, guid: 8f83f688dfdc4466bad394210d1220d2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 474.9
+      value: 473
       objectReference: {fileID: 0}
     - target: {fileID: 4204331235605594, guid: 8f83f688dfdc4466bad394210d1220d2, type: 2}
       propertyPath: m_LocalPosition.y
@@ -681,7 +681,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4204331235605594, guid: 8f83f688dfdc4466bad394210d1220d2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 475.1
+      value: 473
       objectReference: {fileID: 0}
     - target: {fileID: 4204331235605594, guid: 8f83f688dfdc4466bad394210d1220d2, type: 2}
       propertyPath: m_LocalPosition.y
@@ -759,9 +759,10 @@ MonoBehaviour:
   jumpAnimationPrepareTime: 0.4
   attackAnimationTime: 1.2
   fastRuningBassAudio: {fileID: 595666690}
-  fastRunningTransitionDuration: 0.25
+  fastRunningTransitionDuration: 0.35
   jumpingAudio: {fileID: 1486756104}
-  jumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
+  mainAudio: {fileID: 1330105040}
+  jumpSound: {fileID: 8300000, guid: 6c29534c3421d496fad1d824c6e3f2bf, type: 3}
   landSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
 --- !u!4 &595666687
 Transform:
@@ -2040,7 +2041,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6c29534c3421d496fad1d824c6e3f2bf, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2474,7 +2475,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4204331235605594, guid: 8f83f688dfdc4466bad394210d1220d2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 475.1
+      value: 473
       objectReference: {fileID: 0}
     - target: {fileID: 4204331235605594, guid: 8f83f688dfdc4466bad394210d1220d2, type: 2}
       propertyPath: m_LocalPosition.y

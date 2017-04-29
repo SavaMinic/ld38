@@ -89,12 +89,11 @@ public class Character : MonoBehaviour
 
 	private IEnumerator JumpAnimation()
 	{
-		var dx = Input.GetAxis("Horizontal");
 		animator.ResetTrigger("finishFall");
 		animator.SetTrigger("jump");
 
 		yield return new WaitForSeconds(jumpAnimationPrepareTime);
-		var force = Mathf.Sign(dx) * transform.forward * jumpIntensity.x + transform.up * jumpIntensity.y;
+		var force = transform.forward * jumpIntensity.x + transform.up * jumpIntensity.y;
 		rigidBody.AddForce(force);
 	}
 

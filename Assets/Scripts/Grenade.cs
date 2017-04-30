@@ -7,6 +7,7 @@ public class Grenade : MonoBehaviour
 	private GoTween scalingTransition;
 
 	private Rigidbody rigidBody;
+	private AudioSource riffSound;
 
 	public ParticleSystem explosion;
 
@@ -15,6 +16,7 @@ public class Grenade : MonoBehaviour
 	void Awake()
 	{
 		rigidBody = GetComponent<Rigidbody>();
+		riffSound = GetComponent<AudioSource>();
 	}
 
 	void OnCollisionEnter(Collision collision)
@@ -29,6 +31,10 @@ public class Grenade : MonoBehaviour
 
 	private IEnumerator ExplosionAnimation()
 	{
+		riffSound.Play();
+
+		yield return new WaitForSeconds(.3f);
+
 		explosion.Play();
 		scalingTransition = Go.to(transform, .3f, new GoTweenConfig()
 			.scale(0.005f)

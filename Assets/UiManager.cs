@@ -30,6 +30,9 @@ public class UiManager : MonoBehaviour
 	public Button aboutButton;
 	public Button closeHelpAboutButton;
 
+	public Text hintText;
+	public RectTransform hintTransform;
+
 	#endregion
 
 	void Awake()
@@ -109,5 +112,10 @@ public class UiManager : MonoBehaviour
 		helpButton.gameObject.SetActive(true);
 		aboutButton.gameObject.SetActive(true);
 		closeHelpAboutButton.gameObject.SetActive(false);
+	}
+
+	public void ShowHint(string hint, float duration)
+	{
+
 	}
 }

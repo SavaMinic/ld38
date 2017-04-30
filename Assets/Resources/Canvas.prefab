@@ -1087,6 +1087,8 @@ MonoBehaviour:
   helpButton: {fileID: 114873841918700812}
   aboutButton: {fileID: 114554008921236366}
   closeHelpAboutButton: {fileID: 114640769156526890}
+  hintText: {fileID: 0}
+  hintTransform: {fileID: 0}
 --- !u!114 &114554008921236366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1778,7 +1780,7 @@ MonoBehaviour:
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1.2
+    m_LineSpacing: 1
   m_Text: 'Ludum Dare 38 - A Small World
 
 
@@ -1786,16 +1788,17 @@ MonoBehaviour:
 
     https://archive3d.net & https://free3d.com
 
+    Spider (3dhaupt) - http://bit.ly/2pKS4rB
+
+
     Music:
 
     Hundred Years in Helheim by Tri-Tachyon
 
-    Scream:
 
-    Let The Bodies Hit The Floor - Drowning Pool
+    Scream & riff:
 
-
-    Check out my games at http://sava.ninja'
+    Let The Bodies Hit The Floor - Drowning Pool'
 --- !u!114 &114952821749114820
 MonoBehaviour:
   m_ObjectHideFlags: 1

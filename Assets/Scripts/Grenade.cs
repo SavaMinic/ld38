@@ -42,6 +42,7 @@ public class Grenade : MonoBehaviour
 			.scale(0.005f)
 			.setIterations(3, GoLoopType.PingPong)
 		);
+		GameManager.Instance.IncreaseAtmopshere();
 
 		yield return new WaitForSeconds(1.5f);
 

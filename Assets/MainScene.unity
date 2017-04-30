@@ -3660,6 +3660,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f54d0d0532ef4495805503a830d35e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainLight: {fileID: 2144257001}
+  startColor: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  endColor: {r: 1, g: 0, b: 0, a: 1}
+  floorRenderer: {fileID: 802313116}
+  startFloorColor: {r: 0.8014706, g: 0.9589249, b: 1, a: 1}
+  endFloorColor: {r: 1, g: 0, b: 0, a: 1}
+  wallMaterial: {fileID: 988769313}
+  startWallColor: {r: 1, g: 0.9482758, b: 0.25, a: 1}
+  endWallColor: {r: 0.36764705, g: 0.36764705, b: 0.36764705, a: 1}
 --- !u!4 &1915460880
 Transform:
   m_ObjectHideFlags: 0

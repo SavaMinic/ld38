@@ -198,5 +198,11 @@ public class UiManager : MonoBehaviour
 		}
 	}
 
+	public void Debug()
+	{
+		currentStoryIndex = storyUIs.Count - 1;
+		hints.Clear(); ShowNextHint();
+		OnContinueGameClick();
+	}
 
 }

@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 		CurrentScore = 0;
 		State = GameState.Menu;
 		UiManager.Instance.Refresh(true);
+		UiManager.Instance.ShowNextHint();
 	}
 
 	void Update()

@@ -31,13 +31,43 @@ public class UiManager : MonoBehaviour
 	public Button closeHelpAboutButton;
 
 	public Text hintText;
-	public RectTransform hintTransform;
+
+	[System.Serializable]
+	public class Hint
+	{
+		public string hintText;
+		public float delay;
+		public List<KeyCode> keyCodes;
+	}
+
+	public List<Hint> hints;
+	private Hint activeHint;
 
 	#endregion
 
 	void Awake()
 	{
 		Instance = this;
+	}
+
+	void Update()
+	{
+		if (GameManager.Instance.IsPlaying && activeHint != null)
+		{
+			var finished = false;
+			for (int i = 0; i < activeHint.keyCodes.Count; i++)
+			{
+				if (Input.GetKeyDown(activeHint.keyCodes [i]))
+				{
+					finished = true;
+					break;
+				}
+			}
+			if (finished)
+			{
+				ShowNextHint();
+			}
+		}
 	}
 
 	public void RefreshScore()
@@ -81,6 +111,7 @@ public class UiManager : MonoBehaviour
 	{
 		menuUi.gameObject.SetActive(false);
 		gameUI.gameObject.SetActive(true);
+		hintText.gameObject.SetActive(activeHint != null);
 		GameManager.Instance.ContinueGame();
 	}
 
@@ -114,8 +145,34 @@ public class UiManager : MonoBehaviour
 		closeHelpAboutButton.gameObject.SetActive(false);
 	}
 
-	public void ShowHint(string hint, float duration)
+	public void ShowNextHint()
 	{
+		if (activeHint != null)
+		{
+			activeHint = null;
+			hintText.gameObject.SetActive(false);
+		}
+		if (hints.Count > 0)
+		{
+			var hint = hints[0];
+			hints.RemoveAt(0);
+			StartCoroutine(ShowHint(hint));
+		}
 
 	}
+
+	private IEnumerator ShowHint(Hint hint)
+	{
+		if (hint.delay > 0)
+		{
+			yield return new WaitForSeconds(hint.delay);
+		}
+		activeHint = hint;
+		hintText.text = hint.hintText;
+		if (GameManager.Instance.IsPlaying)
+		{
+			hintText.gameObject.SetActive(true);
+		}
+	}
+
 }

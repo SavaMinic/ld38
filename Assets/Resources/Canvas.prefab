@@ -97,6 +97,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1162636216874368
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224331329529854328}
+  - component: {fileID: 222934141920742956}
+  - component: {fileID: 114250324937871400}
+  m_Layer: 5
+  m_Name: HolyGrenadeScore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1166751282888926
 GameObject:
   m_ObjectHideFlags: 1
@@ -202,7 +219,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1235464784615586
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -211,12 +228,12 @@ GameObject:
   - component: {fileID: 222495848276074246}
   - component: {fileID: 114048272830897148}
   m_Layer: 5
-  m_Name: HolyGrenadeScore
+  m_Name: hintLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1245694910128438
 GameObject:
   m_ObjectHideFlags: 1
@@ -336,7 +353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1524193489040384
 GameObject:
   m_ObjectHideFlags: 1
@@ -551,18 +568,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e8ab7772c87d141c8b793f4ca857c67a, type: 3}
-    m_FontSize: 36
+    m_FontSize: 72
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 100
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0/12
+  m_Text: PRESS <color=red>WASD</color> to WALK
 --- !u!114 &114052768348071496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -797,6 +814,39 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114250324937871400
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162636216874368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: e8ab7772c87d141c8b793f4ca857c67a, type: 3}
+    m_FontSize: 36
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 100
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 0/12
 --- !u!114 &114250599422725088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1076,7 +1126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameUI: {fileID: 224188387530220568}
-  scoreLabel: {fileID: 114048272830897148}
+  scoreLabel: {fileID: 114250324937871400}
   winUI: {fileID: 224402612108035712}
   menuUi: {fileID: 224592882799583750}
   helpUi: {fileID: 224216984878034942}
@@ -1087,8 +1137,23 @@ MonoBehaviour:
   helpButton: {fileID: 114873841918700812}
   aboutButton: {fileID: 114554008921236366}
   closeHelpAboutButton: {fileID: 114640769156526890}
-  hintText: {fileID: 0}
-  hintTransform: {fileID: 0}
+  hintText: {fileID: 114048272830897148}
+  hints:
+  - hintText: Press <color=red>WASD</color> to walk
+    delay: 0
+    keyCodes: 77000000610000007300000064000000
+  - hintText: Hold <color=red>SHIFT</color> to go faster
+    delay: 3
+    keyCodes: 300100002f010000
+  - hintText: Press <color=red>E</color> to jump
+    delay: 5
+    keyCodes: 65000000
+  - hintText: Control jump with <color=red>WASD</color> and <color=red>SHIFT</color>
+    delay: 1
+    keyCodes: 77000000610000007300000064000000
+  - hintText: Press <color=red>SPACE</color> to attack
+    delay: 10
+    keyCodes: 20000000
 --- !u!114 &114554008921236366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2051,6 +2116,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1369382056617696}
+--- !u!222 &222934141920742956
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162636216874368}
 --- !u!222 &222974469334535768
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -2086,13 +2157,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 224188387530220568}
-  m_RootOrder: 1
+  m_Father: {fileID: 224088295428351832}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 291, y: 0}
-  m_SizeDelta: {x: 382, y: 136}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 108.5}
+  m_SizeDelta: {x: 1920, y: 217}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224033251471663642
 RectTransform:
@@ -2140,6 +2211,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 224029797503237112}
   - {fileID: 224188387530220568}
   - {fileID: 224402612108035712}
   - {fileID: 224592882799583750}
@@ -2217,9 +2289,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224317468433070724}
-  - {fileID: 224029797503237112}
+  - {fileID: 224331329529854328}
   m_Father: {fileID: 224088295428351832}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -2338,6 +2410,24 @@ RectTransform:
   m_AnchoredPosition: {x: 228, y: -328}
   m_SizeDelta: {x: 424, y: 126}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224331329529854328
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1162636216874368}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224188387530220568}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 291, y: 0}
+  m_SizeDelta: {x: 382, y: 136}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224396987873312668
 RectTransform:
   m_ObjectHideFlags: 1
@@ -2370,7 +2460,7 @@ RectTransform:
   - {fileID: 224249879528114208}
   - {fileID: 224469663485445690}
   m_Father: {fileID: 224088295428351832}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2455,7 +2545,7 @@ RectTransform:
   - {fileID: 224125051126672134}
   - {fileID: 224457105552171456}
   m_Father: {fileID: 224088295428351832}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

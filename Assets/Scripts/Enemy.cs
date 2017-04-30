@@ -109,7 +109,7 @@ public class Enemy : MonoBehaviour
 
 		if (isFollowingSpider != wasFollowingSpider)
 		{
-			Debug.Log(gameObject.name + (isFollowingSpider ? " STARTED" : " STOP"));
+			// todo: add more screams, when enemy change state
 		}
 	}
 

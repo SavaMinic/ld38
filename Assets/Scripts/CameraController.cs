@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
 		if (Input.GetMouseButton(0))
 		{
 			xDeg -= Input.GetAxis("Mouse X") * speed * friction;
-			yDeg += Input.GetAxis("Mouse Y") * speed * friction;
+			yDeg -= Input.GetAxis("Mouse Y") * speed * friction;
 			fromRotation = transform.rotation;
 			toRotation = Quaternion.Euler(yDeg, xDeg, 0);
 			transform.rotation = Quaternion.Lerp(fromRotation, toRotation, Time.deltaTime * lerpSpeed);

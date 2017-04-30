@@ -22,6 +22,7 @@ public class UiManager : MonoBehaviour
 	public RectTransform helpUi;
 	public RectTransform aboutUI;
 	public RectTransform storyUI;
+	public RectTransform deathUI;
 
 	public Button startGameButton;
 	public Button continueButton;
@@ -49,11 +50,15 @@ public class UiManager : MonoBehaviour
 	private Hint activeHint;
 	private float timeForNextHint;
 
+	public List<Image> healtPointImages;
+	private Character spider;
+
 	#endregion
 
 	void Awake()
 	{
 		Instance = this;
+		spider = FindObjectOfType<Character>();
 	}
 
 	void Update()
@@ -86,6 +91,14 @@ public class UiManager : MonoBehaviour
 		StartCoroutine(RefreshAnimation(gm.CurrentScore, gm.MaxScore));
 	}
 
+	public void RefreshHealth()
+	{
+		for (int i = 0; i < healtPointImages.Count; i++)
+		{
+			healtPointImages[i].color = i < spider.HitPoints ? Color.white : Color.red;
+		}
+	}
+
 	public void Refresh(bool isStart)
 	{
 		menuUi.gameObject.SetActive(true);
@@ -93,6 +106,7 @@ public class UiManager : MonoBehaviour
 		continueButton.gameObject.SetActive(!isStart);
 		restartGameButton.gameObject.SetActive(!isStart);
 		RefreshScore();
+		RefreshHealth();
 	}
 
 	private IEnumerator RefreshAnimation(int currScore, int maxScore)
@@ -115,6 +129,11 @@ public class UiManager : MonoBehaviour
 	public void ShowWining()
 	{
 		winUI.gameObject.SetActive(true);
+	}
+
+	public void ShowLosing()
+	{
+		deathUI.gameObject.SetActive(true);
 	}
 
 	public void OnContinueGameClick()

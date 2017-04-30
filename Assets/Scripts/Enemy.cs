@@ -42,6 +42,10 @@ public class Enemy : MonoBehaviour
 	private float nextHitTime;
 	private bool isActive = true;
 	private float disabledTime;
+	private bool isDisabled;
+
+	public Texture activeLavaTexture;
+	public Texture coldLavaTexture;
 
 	void Awake()
 	{
@@ -52,31 +56,47 @@ public class Enemy : MonoBehaviour
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if (isActive && nextHitTime < Time.time && spider.IsAttacking && collision.collider.gameObject.layer == spiderLayer)
+		if (isActive && nextHitTime < Time.time && collision.collider.gameObject.layer == spiderLayer)
 		{
-			// HIT
-			hitParticles.transform.position = collision.contacts[0].point;
-			hitParticles.Play();
-			rigidBody.AddForce(-collision.collider.transform.forward * hitRigidForce);
+			// when we hit it, disable it
+			DisableEnemy();
 
-			// decrase health
-			HealthRatio -= healthDecreaseOnHit;
-			nextHitTime = Time.time + nextHitDelay;
-
-			disabledTime = Time.time + disableTimeDuration;
-
-			if (HealthRatio <= 0f)
+			if (spider.IsAttacking)
 			{
-				isActive = false;
-				StartCoroutine(DeathAnimation());
+				// HIT
+				hitParticles.transform.position = collision.contacts [0].point;
+				hitParticles.Play();
+				rigidBody.AddForce(-collision.collider.transform.forward * hitRigidForce);
+
+				// decrase health
+				HealthRatio -= healthDecreaseOnHit;
+				nextHitTime = Time.time + nextHitDelay;
+
+				if (HealthRatio <= 0f)
+				{
+					isActive = false;
+					StartCoroutine(DeathAnimation());
+				}
+			}
+			else
+			{
+				spider.Hit(this);
 			}
 		}
 	}
 
 	void Update()
 	{
-		if (!isActive)
+		if (!isActive || !GameManager.Instance.IsPlaying)
 			return;
+
+		if (isDisabled)
+		{
+			if (Time.time < disabledTime)
+				return;
+			isDisabled = false;
+			sphereRenderer.material.SetTexture("_LavaTex", activeLavaTexture);
+		}
 
 		var wasFollowingSpider = isFollowingSpider;
 		var distance = Vector3.Distance(transform.position, spider.transform.position);
@@ -95,7 +115,7 @@ public class Enemy : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if (!isActive || Time.time <= disabledTime)
+		if (!isActive || isDisabled || !GameManager.Instance.IsPlaying)
 			return;
 		
 		var positionToFollow = isFollowingSpider ? spider.transform.position : targetVector;
@@ -103,6 +123,16 @@ public class Enemy : MonoBehaviour
 		var newVelocity = -(transform.position - positionToFollow).normalized * speed;
 		newVelocity.y = 0f;
 		rigidBody.MovePosition(transform.position + newVelocity * Time.deltaTime);
+	}
+
+	public void DisableEnemy()
+	{
+		if (!isActive || isDisabled)
+			return;
+
+		isDisabled = true;
+		disabledTime = Time.time + disableTimeDuration;
+		sphereRenderer.material.SetTexture("_LavaTex", coldLavaTexture);
 	}
 
 	private float GetRand(float min, float max)
@@ -125,6 +155,7 @@ public class Enemy : MonoBehaviour
 		loopParticles.Stop();
 		deathParticles.Play();
 
+		GetComponent<Collider>().enabled = false;
 		yield return new WaitForSeconds(2f);
 
 		Destroy(gameObject);

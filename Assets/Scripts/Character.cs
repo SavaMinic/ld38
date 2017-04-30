@@ -52,6 +52,12 @@ public class Character : MonoBehaviour
 	[SerializeField]
 	private float attackDisplacement;
 
+	[SerializeField]
+	private float beingHitForce;
+
+	[SerializeField]
+	private int startHitPoints;
+
 	[Header("Sounds")]
 	[SerializeField]
 	private AudioSource fastRuningBassAudio;
@@ -84,6 +90,8 @@ public class Character : MonoBehaviour
 	public bool IsJumping { get { return State == CharState.Jumping; } }
 	public bool IsAttacking { get { return State == CharState.Attacking; } }
 
+	public int HitPoints { get; private set; }
+
 	#endregion
 
 	#region Unity
@@ -92,6 +100,7 @@ public class Character : MonoBehaviour
 	{
 		rigidBody = GetComponent<Rigidbody>();
 		State = CharState.Idle;
+		HitPoints = startHitPoints;
 	}
 	
 	// Update is called once per frame
@@ -154,6 +163,18 @@ public class Character : MonoBehaviour
 			if (fastRunningTransition != null)
 				fastRunningTransition.destroy();
 			fastRunningTransition = Go.to(fastRuningBassAudio, fastRunningTransitionDuration, new GoTweenConfig().floatProp("volume", 0f));
+		}
+	}
+
+	public void Hit(Enemy enemy)
+	{
+		rigidBody.AddForce((transform.position - enemy.transform.position).normalized * beingHitForce);
+		HitPoints--;
+		UiManager.Instance.RefreshHealth();
+		if (HitPoints == 0)
+		{
+			animator.SetTrigger("dead");
+			GameManager.Instance.LoseGame();
 		}
 	}
 

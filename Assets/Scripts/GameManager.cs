@@ -62,6 +62,12 @@ public class GameManager : MonoBehaviour
 		UiManager.Instance.ShowWining();
 	}
 
+	public void LoseGame()
+	{
+		State = GameState.Lost;
+		UiManager.Instance.ShowLosing();
+	}
+
 	public void ContinueGame()
 	{
 		State = GameState.Playing;

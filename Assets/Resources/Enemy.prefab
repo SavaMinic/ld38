@@ -190,7 +190,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1572805335926454}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 49.1, y: 7.97, z: -210.2}
+  m_LocalPosition: {x: 226.7, y: 1.67, z: -209.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4230085868433722}
@@ -401,10 +401,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereRenderer: {fileID: 23229260796714432}
   healthDecreaseOnHit: 0.4
-  nextHitDelay: 0.8
-  disableTimeDuration: 2.5
+  nextHitDelay: 0.4
+  disableTimeDuration: 3
   hitRigidForce: 15
-  followingSpeed: 10
+  followingSpeed: 8
   distanceToFollow: 120
   timeToChangeTarget: 8
   roamingSpeed: 5
@@ -412,6 +412,8 @@ MonoBehaviour:
   loopParticles: {fileID: 198339465185739524}
   deathParticles: {fileID: 198799477564298778}
   hitParticles: {fileID: 198171721465510564}
+  activeLavaTexture: {fileID: 2800000, guid: 93a726948508cc14eab67fb1abe2daa8, type: 3}
+  coldLavaTexture: {fileID: 2800000, guid: 4532b9b5b68024faa9fd0cb19a61f2d8, type: 3}
 --- !u!135 &135792004184417666
 SphereCollider:
   m_ObjectHideFlags: 1

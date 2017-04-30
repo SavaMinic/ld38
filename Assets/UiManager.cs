@@ -21,6 +21,7 @@ public class UiManager : MonoBehaviour
 	public RectTransform menuUi;
 	public RectTransform helpUi;
 	public RectTransform aboutUI;
+	public RectTransform storyUI;
 
 	public Button startGameButton;
 	public Button continueButton;
@@ -29,6 +30,9 @@ public class UiManager : MonoBehaviour
 	public Button helpButton;
 	public Button aboutButton;
 	public Button closeHelpAboutButton;
+
+	public List<RectTransform> storyUIs;
+	private int currentStoryIndex;
 
 	public Text hintText;
 
@@ -174,5 +178,25 @@ public class UiManager : MonoBehaviour
 			hintText.gameObject.SetActive(true);
 		}
 	}
+
+	public void OnStartQuestClick()
+	{
+		storyUI.gameObject.SetActive(true);
+	}
+
+	public void OnSkipClick()
+	{
+		currentStoryIndex++;
+		if (currentStoryIndex == storyUIs.Count)
+		{
+			storyUI.gameObject.SetActive(false);
+			OnContinueGameClick();
+		}
+		else
+		{
+			storyUIs[currentStoryIndex].gameObject.SetActive(true);
+		}
+	}
+
 
 }

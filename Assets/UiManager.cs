@@ -42,10 +42,12 @@ public class UiManager : MonoBehaviour
 		public string hintText;
 		public float delay;
 		public List<KeyCode> keyCodes;
+		public float duration;
 	}
 
 	public List<Hint> hints;
 	private Hint activeHint;
+	private float timeForNextHint;
 
 	#endregion
 
@@ -66,6 +68,10 @@ public class UiManager : MonoBehaviour
 					finished = true;
 					break;
 				}
+			}
+			if (activeHint.duration > 0 && Time.time > timeForNextHint)
+			{
+				finished = true;
 			}
 			if (finished)
 			{
@@ -173,6 +179,7 @@ public class UiManager : MonoBehaviour
 		}
 		activeHint = hint;
 		hintText.text = hint.hintText;
+		timeForNextHint = hint.duration > 0 ? (Time.time + hint.duration) : -1;
 		if (GameManager.Instance.IsPlaying)
 		{
 			hintText.gameObject.SetActive(true);

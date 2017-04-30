@@ -49,6 +49,9 @@ public class Character : MonoBehaviour
 	[SerializeField]
 	private float attackAnimationTime;
 
+	[SerializeField]
+	private float attackDisplacement;
+
 	[Header("Sounds")]
 	[SerializeField]
 	private AudioSource fastRuningBassAudio;
@@ -77,9 +80,9 @@ public class Character : MonoBehaviour
 
 	public CharState State { get; private set; }
 
-	private bool IsIdle { get { return State == CharState.Idle; } }
-	private bool IsJumping { get { return State == CharState.Jumping; } }
-	private bool IsAttacking { get { return State == CharState.Attacking; } }
+	public bool IsIdle { get { return State == CharState.Idle; } }
+	public bool IsJumping { get { return State == CharState.Jumping; } }
+	public bool IsAttacking { get { return State == CharState.Attacking; } }
 
 	#endregion
 
@@ -115,12 +118,12 @@ public class Character : MonoBehaviour
 		}
 
 		// Handle attack
-		if (IsIdle && Input.GetKeyDown(KeyCode.Space))
+		if (IsIdle && Input.GetKeyDown(KeyCode.E))
 		{
 			StartCoroutine(AttackAnimation());
 		}
 		// Handle jump
-		if (IsIdle && Input.GetKeyDown(KeyCode.E))
+		if (IsIdle && Input.GetKeyDown(KeyCode.Space))
 		{
 			StartCoroutine(JumpAnimation());
 		}
@@ -185,6 +188,7 @@ public class Character : MonoBehaviour
 		State = CharState.Attacking;
 		animator.SetTrigger("attack");
 
+		rigidBody.AddForce(-transform.forward * attackDisplacement);
 		yield return new WaitForSeconds(attackAnimationTime);
 
 		animator.ResetTrigger("attack");

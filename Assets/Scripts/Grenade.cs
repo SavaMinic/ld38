@@ -8,6 +8,7 @@ public class Grenade : MonoBehaviour
 
 	private Rigidbody rigidBody;
 	private AudioSource riffSound;
+	private int spiderLayer;
 
 	public ParticleSystem explosion;
 
@@ -17,11 +18,12 @@ public class Grenade : MonoBehaviour
 	{
 		rigidBody = GetComponent<Rigidbody>();
 		riffSound = GetComponent<AudioSource>();
+		spiderLayer = LayerMask.NameToLayer("Spider");
 	}
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if (!isFound && collision.collider.gameObject.layer == LayerMask.NameToLayer("Spider"))
+		if (!isFound && collision.collider.gameObject.layer == spiderLayer)
 		{
 			isFound = true;
 			rigidBody.AddForce(-collision.collider.transform.forward * 7f);

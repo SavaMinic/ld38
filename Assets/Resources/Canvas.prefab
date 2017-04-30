@@ -2023,18 +2023,31 @@ MonoBehaviour:
   - hintText: Press <color=red>WASD</color> to walk
     delay: 0
     keyCodes: 77000000610000007300000064000000
+    duration: 0
   - hintText: Hold <color=red>SHIFT</color> to go faster
     delay: 3
     keyCodes: 300100002f010000
-  - hintText: Press <color=red>E</color> to jump
+    duration: 0
+  - hintText: Press <color=red>SPACE</color> to jump
     delay: 5
-    keyCodes: 65000000
+    keyCodes: 20000000
+    duration: 0
   - hintText: Control jump with <color=red>WASD</color> and <color=red>SHIFT</color>
     delay: 1
-    keyCodes: 77000000610000007300000064000000
-  - hintText: Press <color=red>SPACE</color> to attack
-    delay: 10
-    keyCodes: 20000000
+    keyCodes: 300100006100000073000000640000002f010000
+    duration: 0
+  - hintText: Press <color=red>E</color> to attack!
+    delay: 5
+    keyCodes: 65000000
+    duration: 0
+  - hintText: COLLECT ALL <color=red>HOLY GRENADES</color>!
+    delay: 5
+    keyCodes: 
+    duration: 5
+  - hintText: Beware of <color=red>Demon eyes</color>. Attack them!
+    delay: 2
+    keyCodes: 
+    duration: 5
 --- !u!114 &114554008921236366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2358,11 +2371,11 @@ MonoBehaviour:
 
     Controls: W/A/S/D
 
-    Jump: E <size=42>(can move while jumping)</size>
+    Jump: SPACE <size=42>(can move while jumping)</size>
 
     Sprint: SHIFT
 
-    ATTACK: SPACE
+    ATTACK: E
 
     Left CLICK: move camera
 
@@ -2590,7 +2603,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114542260016107008}
-        m_MethodName: OnRestartGameClick
+        m_MethodName: OnCloseGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2790,9 +2803,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.3602941, g: 0.3602941, b: 0.3602941, a: 1}
-    m_HighlightedColor: {r: 0.3602941, g: 0.3602941, b: 0.3602941, a: 1}
-    m_PressedColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
+    m_NormalColor: {r: 1, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
+    m_PressedColor: {r: 0.5808823, g: 0, b: 0, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -4105,9 +4118,9 @@ RectTransform:
   m_Father: {fileID: 224311133781923234}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1733, y: -1019}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -278, y: 103}
   m_SizeDelta: {x: 281, y: 81}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224736304694349558
